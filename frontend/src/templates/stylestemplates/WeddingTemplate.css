@@ -1,0 +1,344 @@
+/* Wedding Template Styles */
+
+/* Container Styles */
+.wedding-container {
+    min-height: 100vh;
+    background: #f5f0e8;
+    max-width: 420px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.wedding-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.wedding-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wedding-back-icon {
+    font-size: 18px;
+    cursor: pointer;
+    color: #000;
+}
+
+.wedding-brand {
+    font-weight: bold;
+    color: #22c55e;
+}
+
+.wedding-title {
+    margin-left: 8px;
+    color: #333;
+}
+
+.wedding-save-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.wedding-save-btn:hover {
+    background: #40a9ff;
+}
+
+/* Edit Hint */
+.wedding-edit-hint {
+    text-align: center;
+    padding: 10px;
+    background: #e8f5e9;
+    color: #22c55e;
+    font-size: 13px;
+}
+
+/* Template Content */
+.wedding-content {
+    padding: 16px;
+}
+
+.wedding-card {
+    background: #f5f0e8;
+    border-radius: 16px;
+    padding: 40px 24px;
+    text-align: center;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-house-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.wedding-hello-text {
+    color: #c4a35a;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin: 0 0 10px;
+}
+
+.wedding-main-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: #333;
+    margin: 0 0 20px;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-static-quote {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    font-style: italic;
+}
+
+.wedding-flower {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.wedding-couple-icon {
+    width: 50px;
+    height: 50px;
+    background: #f0ebe3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 20px;
+}
+
+/* Editable Fields */
+.wedding-editable-field {
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.wedding-editable-field:hover {
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.wedding-editable-field.active {
+    border: 2px solid #22c55e;
+}
+
+.wedding-groom-name {
+    font-size: 26px;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-and-symbol {
+    color: #c4a35a;
+    font-size: 14px;
+    margin: 5px 0;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-bride-name {
+    font-size: 26px;
+    font-weight: 400;
+    color: #c4a35a;
+    margin: 0;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-editable-message {
+    cursor: pointer;
+    padding: 12px 16px;
+    margin: 20px 0;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.wedding-editable-message:hover {
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.wedding-editable-message.active {
+    border: 2px solid #22c55e;
+}
+
+.wedding-message-text {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.wedding-photo-placeholder {
+    width: 100%;
+    height: 120px;
+    background: #8b7355;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* Modal Styles */
+.wedding-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.wedding-modal {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+
+.wedding-modal-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.wedding-modal-body {
+    padding: 24px;
+}
+
+.wedding-modal-footer {
+    padding: 10px 16px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    gap: 10px;
+}
+
+/* Input Styles */
+.wedding-input,
+.wedding-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.wedding-input:focus,
+.wedding-textarea:focus {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.wedding-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Button Styles */
+.wedding-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.wedding-btn:hover {
+    color: #40a9ff;
+    border-color: #40a9ff;
+}
+
+.wedding-btn-cancel {
+    flex: 1;
+}
+
+.wedding-btn-danger {
+    color: #ff4d4f;
+    border-color: #ff4d4f;
+    padding: 8px 12px;
+}
+
+.wedding-btn-danger:hover {
+    color: #ff7875;
+    border-color: #ff7875;
+}
+
+.wedding-btn-primary {
+    flex: 1;
+    background: #1890ff;
+    color: white;
+    border-color: #1890ff;
+}
+
+.wedding-btn-primary:hover {
+    background: #40a9ff;
+    border-color: #40a9ff;
+}
+
+/* Loading Spinner */
+.wedding-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f0e8;
+}
+
+.wedding-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #1890ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

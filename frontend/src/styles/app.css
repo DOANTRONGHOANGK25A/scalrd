@@ -1,0 +1,1326 @@
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #1e293b;
+}
+
+/* ==================== BASE COMPONENTS (Redesigned for scard.lovable.app style) ==================== */
+
+/* Page Container */
+.page-container {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #f0fdf4 0%, #ecfdf5 30%, #ffffff 100%);
+    padding: 20px;
+}
+
+.page-container.centered {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Card Component */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 20px;
+    box-shadow:
+        0 4px 20px rgba(0, 0, 0, 0.04),
+        0 1px 2px rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body.small {
+    padding: 14px;
+}
+
+.card.hoverable {
+    transition: all 0.25s ease;
+    cursor: pointer;
+}
+
+.card.hoverable:hover {
+    transform: translateY(-4px);
+    box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(0, 0, 0, 0.04);
+    border-color: rgba(34, 197, 94, 0.2);
+}
+
+/* Button Component */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 14px;
+    border: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.9);
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    line-height: 1.5;
+}
+
+.btn:hover {
+    border-color: #22c55e;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.04);
+}
+
+.btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.25);
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #16a34a 0%, #15803d 100%);
+    border-color: transparent;
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.3);
+}
+
+.btn-primary:disabled {
+    background: linear-gradient(135deg, #a7f3d0 0%, #86efac 100%);
+    border-color: transparent;
+    box-shadow: none;
+}
+
+.btn-danger {
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+    background: rgba(239, 68, 68, 0.04);
+}
+
+.btn-danger:hover {
+    background: #ef4444;
+    border-color: #ef4444;
+    color: #fff;
+}
+
+.btn-danger.filled {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.btn-large {
+    padding: 16px 28px;
+    font-size: 17px;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-round {
+    border-radius: 50px;
+}
+
+.btn-icon {
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    border-radius: 12px;
+}
+
+/* Input Component */
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 15px;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e293b;
+}
+
+.input::placeholder {
+    color: #94a3b8;
+}
+
+.input:hover:not(:focus) {
+    border-color: #cbd5e1;
+}
+
+.input:focus {
+    border-color: #22c55e;
+    box-shadow:
+        0 0 0 4px rgba(34, 197, 94, 0.1),
+        0 4px 16px rgba(34, 197, 94, 0.1);
+    background: #fff;
+}
+
+.input-large {
+    padding: 16px 18px;
+    font-size: 16px;
+}
+
+.input-with-icon {
+    padding-left: 46px;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper:focus-within .input-icon {
+    color: #22c55e;
+}
+
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 18px;
+    transition: color 0.2s ease;
+}
+
+/* Modal Component */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: #fff;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 90vh;
+    overflow: hidden;
+    animation: scaleIn 0.2s ease;
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-footer {
+    padding: 16px 20px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+/* Segmented Control (Category Tabs) */
+.segmented-control {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+}
+
+.segmented-control::-webkit-scrollbar {
+    display: none;
+}
+
+.segmented-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    background: #f0f0f0;
+    border-radius: 20px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+
+.segmented-item:hover {
+    background: #e0e0e0;
+}
+
+.segmented-item.active {
+    background: #22c55e;
+    color: #fff;
+}
+
+/* Grid */
+.grid-2-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+/* Spinner */
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #f0f0f0;
+    border-top-color: #22c55e;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.empty-state-icon {
+    font-size: 48px;
+    color: #22c55e;
+    margin-bottom: 16px;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    color: #333;
+}
+
+.empty-state p {
+    margin: 0 0 20px;
+    color: #888;
+    font-size: 14px;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+
+/* Flexbox */
+.flex {
+    display: flex;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.flex-center {
+    align-items: center;
+    justify-content: center;
+}
+
+.flex-between {
+    justify-content: space-between;
+}
+
+.flex-start {
+    align-items: flex-start;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.gap-4 {
+    gap: 4px;
+}
+
+.gap-8 {
+    gap: 8px;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.gap-12 {
+    gap: 12px;
+}
+
+.gap-16 {
+    gap: 16px;
+}
+
+.gap-20 {
+    gap: 20px;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+/* Spacing */
+.mb-6 {
+    margin-bottom: 6px;
+}
+
+.mb-8 {
+    margin-bottom: 8px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-12 {
+    margin-bottom: 12px;
+}
+
+.mb-14 {
+    margin-bottom: 14px;
+}
+
+.mb-16 {
+    margin-bottom: 16px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mb-24 {
+    margin-bottom: 24px;
+}
+
+.mb-30 {
+    margin-bottom: 30px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-12 {
+    margin-top: 12px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.p-16 {
+    padding: 16px;
+}
+
+.p-20 {
+    padding: 20px;
+}
+
+.p-30 {
+    padding: 30px;
+}
+
+.p-40 {
+    padding: 40px;
+}
+
+/* Text */
+.text-center {
+    text-align: center;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.text-primary {
+    color: #22c55e;
+}
+
+.text-secondary {
+    color: #888;
+}
+
+.text-danger {
+    color: #ff4d4f;
+}
+
+.text-dark {
+    color: #333;
+}
+
+.text-bold {
+    font-weight: 600;
+}
+
+.text-strong {
+    font-weight: 700;
+}
+
+.text-xs {
+    font-size: 10px;
+}
+
+.text-sm {
+    font-size: 12px;
+}
+
+.text-base {
+    font-size: 14px;
+}
+
+.text-lg {
+    font-size: 16px;
+}
+
+.text-xl {
+    font-size: 18px;
+}
+
+.text-2xl {
+    font-size: 20px;
+}
+
+.text-3xl {
+    font-size: 24px;
+}
+
+.text-ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Width */
+.w-full {
+    width: 100%;
+}
+
+.max-w-360 {
+    max-width: 360px;
+}
+
+.max-w-400 {
+    max-width: 400px;
+}
+
+.max-w-500 {
+    max-width: 500px;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Icons */
+.icon-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    background: #e8f5e9;
+    border-radius: 50%;
+    font-size: 26px;
+    color: #22c55e;
+}
+
+.icon-circle.small {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+}
+
+.icon-circle.large {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+}
+
+/* Progress Bar */
+.progress-bar {
+    display: flex;
+    gap: 8px;
+}
+
+.progress-segment {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #e0e0e0;
+}
+
+.progress-segment.active {
+    background: #22c55e;
+}
+
+/* Fixed Bottom Button */
+.fixed-bottom-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 400px;
+}
+
+/* Link */
+.link {
+    color: #22c55e;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.link:hover {
+    color: #16a34a;
+}
+
+/* ==================== TEMPLATE PREVIEW STYLES (for Modal) ==================== */
+
+/* Wedding Preview */
+.preview-wedding-card {
+    padding: 40px 30px;
+    text-align: center;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-icon {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.wedding-hello {
+    color: #c4a35a;
+    font-size: 11px;
+    letter-spacing: 3px;
+    margin: 0 0 10px;
+}
+
+.wedding-title {
+    font-size: 22px;
+    font-weight: 400;
+    color: #333;
+    margin: 0 0 20px;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-quote {
+    font-size: 13px;
+    color: #666;
+    line-height: 1.6;
+    margin: 0 0 20px;
+    font-style: italic;
+}
+
+.wedding-flower {
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.wedding-couple-icon {
+    width: 50px;
+    height: 50px;
+    background: #f0ebe3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    font-size: 20px;
+}
+
+.wedding-groom,
+.wedding-bride {
+    font-size: 26px;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-and {
+    color: #c4a35a;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.wedding-footer-quote {
+    font-size: 12px;
+    color: #888;
+    font-style: italic;
+    margin: 20px 0;
+    line-height: 1.5;
+}
+
+.wedding-photo-placeholder {
+    width: 100%;
+    height: 120px;
+    background: #8b7355;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+/* ==================== TEMPLATE EDITOR STYLES ==================== */
+.template-editor-page {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #e8f5e9 0%, #f5f7f5 100%);
+}
+
+.editor-header {
+    background: #fff;
+    padding: 16px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.editor-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.editor-title h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #22c55e;
+    margin: 0;
+}
+
+.editor-subtitle {
+    font-size: 12px;
+    color: #888;
+}
+
+.editor-content {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.editor-form {
+    background: #fff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.form-section {
+    margin-bottom: 28px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.form-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin: 0 0 16px;
+}
+
+.form-row {
+    margin-bottom: 16px;
+}
+
+.form-row label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #444;
+    margin-bottom: 6px;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: all 0.2s;
+    box-sizing: border-box;
+}
+
+.form-row input:focus,
+.form-row select:focus,
+.form-row textarea:focus {
+    border-color: #22c55e;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.checkbox-row label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #22c55e;
+}
+
+.experience-item,
+.link-item {
+    background: #f8f9fa;
+    padding: 16px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+}
+
+.service-input-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.service-input-row .form-row {
+    flex: 1;
+}
+
+.add-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border: 2px dashed #d9d9d9;
+    background: transparent;
+    border-radius: 10px;
+    color: #666;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-btn:hover {
+    border-color: #22c55e;
+    color: #22c55e;
+    background: rgba(34, 197, 94, 0.05);
+}
+
+.remove-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    border: none;
+    background: #fee2e2;
+    color: #dc2626;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: all 0.2s;
+}
+
+.remove-btn:hover {
+    background: #fecaca;
+}
+
+.remove-btn-small {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: #fee2e2;
+    color: #dc2626;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+    transition: all 0.2s;
+}
+
+.remove-btn-small:hover {
+    background: #fecaca;
+}
+
+.save-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 14px;
+    border: none;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.save-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
+}
+
+.save-btn:active {
+    transform: translateY(0);
+}
+
+/* ==================== WYSIWYG EDITOR STYLES ==================== */
+.wysiwyg-editor-page {
+    min-height: 100vh;
+    background: #f5f0e8;
+    display: flex;
+    flex-direction: column;
+}
+
+.wysiwyg-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.wysiwyg-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.wysiwyg-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-logo {
+    color: #22c55e;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.template-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+.edit-icon {
+    font-size: 14px;
+}
+
+.save-header-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 20px;
+    background: #22c55e;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-header-btn:hover {
+    background: #16a34a;
+}
+
+.edit-hint {
+    text-align: center;
+    padding: 10px;
+    background: #e8f5e9;
+    color: #22c55e;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.wysiwyg-content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/* Editable Fields */
+.editable-field {
+    cursor: pointer;
+    padding: 8px 16px;
+    margin: 5px 0;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.editable-field:hover {
+    background: rgba(34, 197, 94, 0.05);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.editable-field.editing {
+    background: rgba(34, 197, 94, 0.1);
+    border-color: #22c55e;
+}
+
+.editable-field.inline {
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 0;
+}
+
+/* Edit Modal */
+.edit-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.edit-modal {
+    width: 100%;
+    max-width: 500px;
+    background: #fff;
+    border-radius: 20px 20px 0 0;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.edit-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.edit-modal-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.close-modal-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.edit-modal-body {
+    padding: 20px;
+}
+
+.edit-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #22c55e;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #c4a35a;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.edit-input::placeholder {
+    color: #ccc;
+}
+
+textarea.edit-input {
+    resize: none;
+    line-height: 1.5;
+}
+
+.edit-modal-footer {
+    display: flex;
+    gap: 10px;
+    padding: 16px 20px 24px;
+}
+
+.modal-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: all 0.2s;
+}
+
+.cancel-btn {
+    flex: 1;
+    background: #e5e7eb;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background: #d1d5db;
+}
+
+.modal-btn.delete-btn {
+    width: 48px;
+    background: #ef4444;
+    color: white;
+}
+
+.modal-btn.delete-btn:hover {
+    background: #dc2626;
+}
+
+.apply-btn {
+    flex: 1;
+    background: #22c55e;
+    color: white;
+}
+
+.apply-btn:hover {
+    background: #16a34a;
+}
+
+/* ==================== WEDDING TEMPLATE ==================== */
+.wedding-template-preview {
+    max-width: 400px;
+    margin: 0 auto;
+    background: #f5f0e8;
+}
+
+.cover-image-area {
+    background: linear-gradient(180deg, #d4c4a8 0%, #c4b498 100%);
+    padding: 30px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cover-image-area:hover {
+    background: linear-gradient(180deg, #c4b498 0%, #b4a488 100%);
+}
+
+.cover-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.house-icon {
+    font-size: 40px;
+}
+
+.cover-hint {
+    color: #c4a35a;
+    font-size: 13px;
+    margin: 0;
+}
+
+.wedding-card-content {
+    padding: 30px 25px;
+    text-align: center;
+}
+
+.hello-text {
+    color: #c4a35a;
+    font-size: 12px;
+    letter-spacing: 3px;
+    margin: 0 0 15px;
+    font-weight: 500;
+}
+
+.main-title {
+    font-size: 24px;
+    font-weight: 400;
+    color: #333;
+    margin: 0 0 20px;
+    font-family: 'Georgia', serif;
+}
+
+.wedding-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+    font-style: italic;
+    margin: 0 0 25px;
+    font-family: 'Georgia', serif;
+}
+
+.couple-section {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.couple-icon {
+    width: 60px;
+    height: 60px;
+    background: #f0ebe3;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.flower-left,
+.flower-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+}
+
+.flower-left {
+    left: 30%;
+}
+
+.flower-right {
+    right: 30%;
+}
+
+.groom-name,
+.bride-name {
+    font-size: 28px;
+    font-weight: 400;
+    color: #333;
+    margin: 0;
+    font-family: 'Georgia', serif;
+}
+
+.bride-name {
+    color: #c4a35a;
+}
+
+.and-symbol {
+    color: #c4a35a;
+    font-size: 16px;
+    margin: 5px 0;
+    font-family: 'Georgia', serif;
+}
+
+.quote-field {
+    margin-top: 20px;
+}
+
+.quote-text {
+    font-size: 13px;
+    color: #888;
+    font-style: italic;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.photo-area {
+    margin-top: 25px;
+}
+
+.photo-placeholder {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(180deg, #8b7355 0%, #6d5a45 100%);
+    border-radius: 12px;
+}

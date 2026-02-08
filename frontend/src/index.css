@@ -1,0 +1,104 @@
+/* ==================== GLOBAL RESET & BASE STYLES ==================== */
+/* Clean white style like scard.lovable.app */
+
+:root {
+  /* Colors */
+  --color-primary: #22c55e;
+  --color-primary-dark: #16a34a;
+  --color-teal: #14b8a6;
+  --color-background: #ffffff;
+  --color-text-primary: #111827;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-border: #e5e7eb;
+  --color-danger: #ef4444;
+
+  /* Typography */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  /* Rendering */
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color-scheme: light;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #fff;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Links */
+a {
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
+/* Base button reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Remove default focus outline */
+button:focus,
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Remove list styles */
+ul,
+ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Selection */
+::selection {
+  background: #dcfce7;
+  color: #16a34a;
+}

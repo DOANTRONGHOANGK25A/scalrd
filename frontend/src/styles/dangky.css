@@ -1,0 +1,214 @@
+/* ==================== ĐĂNG KÝ PAGES (Step 1, 2, 3) ==================== */
+/* Styling for Ant Design components to match scard.lovable.app */
+
+.dangky-page {
+    min-height: 100vh;
+    background: #ffffff;
+    padding: 20px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
+.dangky-header {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.dangky-back-btn.ant-btn {
+    color: #6b7280;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+}
+
+.dangky-back-btn.ant-btn:hover {
+    color: #22c55e !important;
+    background: transparent !important;
+}
+
+.dangky-brand {
+    font-weight: 700;
+    font-size: 18px;
+    color: #22c55e;
+}
+
+.dangky-brand-sub {
+    margin-left: 6px;
+}
+
+.dangky-step {
+    display: block;
+    margin-top: 2px;
+}
+
+/* Progress Bar */
+.dangky-progress.ant-progress {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 32px;
+}
+
+.dangky-progress .ant-progress-inner {
+    border-radius: 2px;
+}
+
+.dangky-progress .ant-progress-bg {
+    height: 4px !important;
+    border-radius: 2px;
+}
+
+/* Icon */
+.dangky-icon {
+    width: 56px;
+    height: 56px;
+    background: #dcfce7;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    color: #22c55e;
+    margin-bottom: 24px;
+}
+
+/* Title */
+.dangky-title.ant-typography {
+    margin: 0 0 8px !important;
+    font-size: 22px;
+}
+
+.dangky-subtitle {
+    margin-bottom: 28px;
+    display: block;
+}
+
+/* Form */
+.dangky-form {
+    width: 100%;
+    max-width: 500px;
+    margin-top: 8px;
+}
+
+.dangky-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.dangky-label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Ant Design Input - Borderless with underline */
+.dangky-input.ant-input {
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 0;
+    padding: 12px 0;
+    font-size: 15px;
+    background: transparent;
+}
+
+.dangky-input.ant-input:hover,
+.dangky-input.ant-input:focus {
+    border-bottom-color: #22c55e;
+    box-shadow: none;
+}
+
+.dangky-input.ant-input .ant-input-prefix {
+    margin-right: 10px;
+    color: #9ca3af;
+}
+
+/* Ant Design Input with affix */
+.dangky-input.ant-input-affix-wrapper {
+    border: none;
+    border-bottom: 1px solid #e5e7eb;
+    border-radius: 0;
+    padding: 12px 0;
+    background: transparent;
+}
+
+.dangky-input.ant-input-affix-wrapper:hover,
+.dangky-input.ant-input-affix-wrapper-focused {
+    border-bottom-color: #22c55e;
+    box-shadow: none !important;
+}
+
+.dangky-input .ant-input-prefix {
+    margin-right: 10px;
+    color: #9ca3af;
+}
+
+/* Gender buttons */
+.dangky-gender-group {
+    display: flex;
+    gap: 10px;
+}
+
+.dangky-gender-btn.ant-btn {
+    flex: 1;
+    height: 44px;
+    border-radius: 8px;
+}
+
+.dangky-gender-btn.ant-btn-default {
+    border-color: #e5e7eb;
+    color: #6b7280;
+}
+
+.dangky-gender-btn.ant-btn-default:hover {
+    border-color: #22c55e !important;
+    color: #22c55e !important;
+}
+
+.dangky-gender-btn.ant-btn-primary {
+    background: #22c55e;
+    border-color: #22c55e;
+}
+
+/* Submit Button */
+.dangky-submit-btn.ant-btn {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 40px);
+    max-width: 500px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #22c55e 0%, #14b8a6 100%);
+    border: none;
+    box-shadow: none;
+}
+
+.dangky-submit-btn.ant-btn:hover {
+    background: linear-gradient(90deg, #16a34a 0%, #0d9488 100%) !important;
+}
+
+.dangky-submit-btn.ant-btn:disabled {
+    background: linear-gradient(90deg, #86efac 0%, #99f6e4 100%);
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .dangky-page {
+        padding: 16px;
+        padding-bottom: 100px;
+    }
+
+    .dangky-submit-btn.ant-btn {
+        bottom: 20px;
+        width: calc(100% - 32px);
+    }
+}

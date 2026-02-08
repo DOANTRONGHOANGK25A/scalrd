@@ -1,0 +1,274 @@
+/* ==================== WELCOME PAGE ==================== */
+/* EXACTLY matching scard.lovable.app style */
+
+.welcome-page {
+    min-height: 100vh;
+    background: #f3faf5;
+    width: 100%;
+}
+
+.welcome-inner {
+    padding: 32px 16px 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 420px;
+    margin: 0 auto;
+}
+
+/* Brand */
+.welcome-brand {
+    color: #22c55e;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.welcome-slogan {
+    color: #22c55e;
+    font-size: 8px;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+/* Title */
+.welcome-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 4px;
+}
+
+.welcome-subtitle {
+    color: #22c55e;
+    font-size: 13px;
+    margin-bottom: 16px;
+}
+
+/* Gift Card */
+.gift-card {
+    max-width: 500px;
+    width: 100%;
+    margin-bottom: 16px;
+    background: #fff;
+    border-radius: 16px;
+    border: 1px solid #eef2f7;
+    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+    overflow: hidden;
+}
+
+/* Gift Card Visual */
+.gift-card-visual {
+    background: #f8fbf9;
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 180px;
+}
+
+/* Soft mint container like the reference */
+.gift-card-visual-inner {
+    background: #edf9f3;
+    border-radius: 14px;
+    padding: 24px 22px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    min-height: 160px;
+}
+
+.gift-mockup-wrap {
+    position: relative;
+}
+
+/* Card mockup */
+.gift-mockup {
+    width: 104px;
+    height: 132px;
+    background: linear-gradient(145deg, #37c77c 0%, #1ea769 100%);
+    border-radius: 16px;
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 22px rgba(16, 185, 129, 0.25);
+}
+
+.gift-mockup-avatar {
+    width: 46px;
+    height: 46px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 50%;
+}
+
+.gift-mockup-line {
+    width: 58px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.35);
+    border-radius: 999px;
+}
+
+.gift-mockup-line.short {
+    width: 42px;
+}
+
+/* Badge */
+.card-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    background: #22c55e;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(34, 197, 94, 0.35);
+}
+
+/* Gift Card Content */
+.gift-card-content {
+    padding: 20px 22px 22px;
+    text-align: left;
+}
+
+.gift-card-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.gift-card-text {
+    color: #6b7280;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0 0 8px;
+}
+
+.gift-card-text:last-child {
+    margin-bottom: 0;
+}
+
+.gift-card-text strong {
+    color: #111827;
+}
+
+/* Highlight text like "transform" */
+.text-highlight {
+    color: #22c55e;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* Features List */
+.features-list {
+    max-width: 500px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-top: 1px solid #f3f4f6;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 4px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.feature-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.feature-content {
+    text-align: left;
+    flex: 1;
+}
+
+.feature-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #111827;
+    margin-bottom: 1px;
+}
+
+.feature-desc {
+    font-size: 12px;
+    color: #9ca3af;
+    line-height: 1.4;
+}
+
+/* Button */
+.welcome-btn {
+    max-width: 500px;
+    width: 100%;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    background: linear-gradient(90deg, #22c55e 0%, #14b8a6 100%);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.welcome-btn:hover {
+    opacity: 0.95;
+}
+
+/* Terms */
+.welcome-terms {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-top: 14px;
+    max-width: 500px;
+}
+
+.welcome-terms a {
+    color: #22c55e;
+    text-decoration: none;
+}
+
+.welcome-terms a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .welcome-inner {
+        padding: 30px 16px 30px;
+    }
+
+    .gift-card-visual {
+        padding: 16px;
+    }
+
+    .gift-card-visual-inner {
+        padding: 20px;
+        min-height: 150px;
+    }
+
+    .gift-mockup {
+        width: 96px;
+        height: 122px;
+    }
+}

@@ -1,0 +1,298 @@
+.cv-container {
+    min-height: 100vh;
+    background: #f5f5f5;
+    max-width: 420px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading */
+.cv-loading {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cv-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e5e7eb;
+    border-top-color: #3b82f6;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Header */
+.cv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.cv-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cv-back-icon {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.cv-brand {
+    color: #22c55e;
+    font-weight: 600;
+}
+
+.cv-title {
+    margin-left: 8px;
+    color: #333;
+}
+
+.cv-save-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+/* Edit Hint */
+.cv-edit-hint {
+    text-align: center;
+    padding: 10px;
+    color: #f97316;
+    font-size: 14px;
+}
+
+/* Content */
+.cv-content {
+    padding: 0 16px 24px;
+}
+
+/* Hero Section */
+.cv-hero {
+    background: linear-gradient(135deg, #334155 0%, #1e3a5f 100%);
+    border-radius: 16px;
+    padding: 32px 20px;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.cv-avatar {
+    width: 80px;
+    height: 80px;
+    background: #6b7280;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.cv-name {
+    color: #fff;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0 0 4px;
+}
+
+.cv-job-title {
+    color: #94a3b8;
+    font-size: 14px;
+    margin: 0 0 12px;
+}
+
+.cv-social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.cv-social-icon {
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+/* Editable Fields */
+.cv-editable {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.cv-editable:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cv-editable.active {
+    background: rgba(59, 130, 246, 0.2);
+}
+
+/* Sections */
+.cv-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cv-section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+}
+
+.cv-section:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.cv-section.active {
+    box-shadow: 0 0 0 2px #3b82f6;
+}
+
+.cv-section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.cv-section-icon {
+    font-size: 18px;
+}
+
+.cv-icon-blue {
+    color: #3b82f6;
+}
+
+.cv-icon-orange {
+    color: #f97316;
+}
+
+.cv-icon-yellow {
+    color: #eab308;
+}
+
+.cv-icon-green {
+    color: #22c55e;
+}
+
+.cv-section-text {
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Modal */
+.cv-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.cv-modal {
+    background: #fff;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 400px;
+    overflow: hidden;
+}
+
+.cv-modal-header {
+    padding: 16px;
+    font-weight: 600;
+    font-size: 16px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.cv-modal-body {
+    padding: 16px;
+}
+
+.cv-input,
+.cv-textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.cv-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.cv-input:focus,
+.cv-textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+}
+
+.cv-modal-footer {
+    display: flex;
+    gap: 8px;
+    padding: 12px 16px;
+    border-top: 1px solid #e5e7eb;
+    justify-content: flex-end;
+}
+
+.cv-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cv-btn-cancel {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.cv-btn-danger {
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+.cv-btn-primary {
+    background: #3b82f6;
+    color: #fff;
+}
