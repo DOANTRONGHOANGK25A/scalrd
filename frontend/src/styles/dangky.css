@@ -49,19 +49,24 @@
 }
 
 /* Progress Bar */
-.dangky-progress.ant-progress {
+.dangky-progress-container {
+    display: flex;
+    gap: 8px;
     width: 100%;
     max-width: 500px;
     margin-bottom: 32px;
 }
 
-.dangky-progress .ant-progress-inner {
+.dangky-progress-segment {
+    flex: 1;
+    height: 4px;
+    background-color: #e5e7eb;
     border-radius: 2px;
+    transition: background-color 0.3s ease;
 }
 
-.dangky-progress .ant-progress-bg {
-    height: 4px !important;
-    border-radius: 2px;
+.dangky-progress-segment.active {
+    background-color: #22c55e;
 }
 
 /* Icon */

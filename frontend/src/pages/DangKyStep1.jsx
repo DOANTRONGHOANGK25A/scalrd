@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { docJson, ghiJson } from "../utils/localStorage";
-import { Input, Button, Typography, Progress } from "antd";
+import { Input, Button, Typography } from "antd";
 import { UserOutlined, MailOutlined, PhoneOutlined, ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import "../styles/dangky.css";
 
@@ -49,13 +49,11 @@ export default function DangKyStep1() {
             </div>
 
             {/* Progress Bar */}
-            <Progress
-                percent={33}
-                showInfo={false}
-                strokeColor="#22c55e"
-                trailColor="#e5e7eb"
-                className="dangky-progress"
-            />
+            <div className="dangky-progress-container">
+                <div className="dangky-progress-segment active"></div>
+                <div className="dangky-progress-segment"></div>
+                <div className="dangky-progress-segment"></div>
+            </div>
 
             {/* Icon */}
             <div className="dangky-icon">
