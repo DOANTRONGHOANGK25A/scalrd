@@ -8,9 +8,9 @@ import './stylestemplates/BioTemplate.css';
 export default function BioTemplate() {
     const nav = useNavigate();
     const phien = docJson('phien_nguoi_dung', null);
-    // Lấy hoSoId từ current_ho_so_id (khi edit từ Dashboard) hoặc từ phien (khi đăng ký mới)
-    const storedHoSoId = localStorage.getItem('current_ho_so_id');
-    const hoSoId = storedHoSoId ? Number(storedHoSoId) : phien?.hoSoId;
+
+    const pageId = phien?.pageId;
+    const khoaSua = phien?.khoaSua;
     const userData = docJson('dang_ky_tam', {});
 
     const fullName = userData.hoTen || 'Your Name';
@@ -27,14 +27,14 @@ export default function BioTemplate() {
 
     useEffect(() => {
         async function loadData() {
-            if (!phien || !hoSoId) {
+            if (!pageId || !khoaSua) {
                 setLoading(false);
                 return;
             }
             try {
-                const data = await apiGet(`/api/ho-so/${hoSoId}?khoa_sua=${phien.khoaSua}`);
-                if (data && data.du_lieu) {
-                    const d = data.du_lieu;
+                const data = await apiGet(`/api/owner/pages/${pageId}/draft?khoa_sua=${khoaSua}`);
+                if (data && data.duLieu) {
+                    const d = data.duLieu;
                     if (d.bio) setBio(d.bio);
                     if (d.link1) setLink1(d.link1);
                     if (d.link2) setLink2(d.link2);
@@ -82,10 +82,10 @@ export default function BioTemplate() {
     }
 
     async function luu() {
-        if (!phien || !hoSoId) return alert('Chưa đăng ký xong');
+        if (!pageId || !khoaSua) return alert('Chưa đăng ký xong');
         const duLieu = { bio, link1, link2, link3, link4 };
         try {
-            await apiPut(`/api/ho-so/${hoSoId}/du-lieu?khoa_sua=${phien.khoaSua}`, { duLieu });
+            await apiPut(`/api/owner/pages/${pageId}/save?khoa_sua=${khoaSua}`, { duLieu });
             nav('/dashboard');
         } catch (e) {
             alert(e.message);

@@ -1,16 +1,16 @@
 import { useState, useEffect } from "react";
-import { apiGet, apiPut } from "../api/api.js";
+import { apiGet, apiPut, apiPost } from "../api/api.js";
 import { docJson } from "../utils/localStorage.js";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeftOutlined, SaveOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, SaveOutlined, DeleteOutlined, CheckOutlined, SendOutlined } from '@ant-design/icons';
 import './stylestemplates/WeddingTemplate.css';
 
 export default function WeddingTemplate() {
     const nav = useNavigate();
     const phien = docJson('phien_nguoi_dung', null);
 
-    const storedHoSoId = localStorage.getItem('current_ho_so_id');
-    const hoSoId = storedHoSoId ? Number(storedHoSoId) : phien?.hoSoId;
+    const pageId = phien?.pageId;
+    const khoaSua = phien?.khoaSua;
 
     const [groomName, setGroomName] = useState('William');
     const [brideName, setBrideName] = useState('Emma');
@@ -22,14 +22,14 @@ export default function WeddingTemplate() {
 
     useEffect(() => {
         async function loadData() {
-            if (!phien || !hoSoId) {
+            if (!pageId || !khoaSua) {
                 setLoading(false);
                 return;
             }
             try {
-                const data = await apiGet(`/api/ho-so/${hoSoId}?khoa_sua=${phien.khoaSua}`);
-                if (data && data.du_lieu) {
-                    const d = data.du_lieu;
+                const data = await apiGet(`/api/owner/pages/${pageId}/draft?khoa_sua=${khoaSua}`);
+                if (data && data.duLieu) {
+                    const d = data.duLieu;
                     if (d.groomName) setGroomName(d.groomName);
                     if (d.brideName) setBrideName(d.brideName);
                     if (d.message) setMessage(d.message);
@@ -73,11 +73,27 @@ export default function WeddingTemplate() {
     }
 
     async function luu() {
-        if (!phien || !hoSoId) return alert('Chưa đăng ký xong');
+        if (!pageId || !khoaSua) return alert('Chưa đăng ký xong');
         const duLieu = { groomName, brideName, message };
         try {
-            await apiPut(`/api/ho-so/${hoSoId}/du-lieu?khoa_sua=${phien.khoaSua}`, { duLieu });
+            await apiPut(`/api/owner/pages/${pageId}/save?khoa_sua=${khoaSua}`, { duLieu });
             nav('/dashboard');
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    async function luuVaPublish() {
+        if (!pageId || !khoaSua) return alert('Chưa đăng ký xong');
+        const duLieu = { groomName, brideName, message };
+        try {
+            await apiPut(`/api/owner/pages/${pageId}/save?khoa_sua=${khoaSua}`, { duLieu });
+            const rs = await apiPost(`/api/owner/pages/${pageId}/publish?khoa_sua=${khoaSua}`);
+            if (rs.tagId) {
+                nav(`/${encodeURIComponent(rs.tagId)}`);
+            } else {
+                nav('/dashboard');
+            }
         } catch (e) {
             alert(e.message);
         }
@@ -104,6 +120,10 @@ export default function WeddingTemplate() {
                 <button className="wedding-save-btn" onClick={luu}>
                     <SaveOutlined />
                     Save
+                </button>
+                <button className="wedding-save-btn" onClick={luuVaPublish} style={{ marginLeft: 6, background: '#6366f1' }}>
+                    <SendOutlined />
+                    Publish
                 </button>
             </div>
 

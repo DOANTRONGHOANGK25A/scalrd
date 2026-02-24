@@ -11,6 +11,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 
 import TemplateGallery from "./pages/TemplateGallery.jsx";
 import WelcomePage from "./pages/WelcomePage.jsx";
+import TagGate from "./pages/TagGate.jsx";
 
 // Templates
 import WeddingTemplate from "./templates/WeddingTemplate.jsx";

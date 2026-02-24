@@ -8,9 +8,9 @@ import './stylestemplates/CVTemplate.css';
 export default function CVTemplate() {
     const nav = useNavigate();
     const phien = docJson('phien_nguoi_dung', null);
-    // Lấy hoSoId từ current_ho_so_id (khi edit từ Dashboard) hoặc từ phien (khi đăng ký mới)
-    const storedHoSoId = localStorage.getItem('current_ho_so_id');
-    const hoSoId = storedHoSoId ? Number(storedHoSoId) : phien?.hoSoId;
+
+    const pageId = phien?.pageId;
+    const khoaSua = phien?.khoaSua;
 
     const [fullName, setFullName] = useState('Hoàng');
     const [jobTitle, setJobTitle] = useState('Job Title');
@@ -25,14 +25,14 @@ export default function CVTemplate() {
 
     useEffect(() => {
         async function loadData() {
-            if (!phien || !hoSoId) {
+            if (!pageId || !khoaSua) {
                 setLoading(false);
                 return;
             }
             try {
-                const data = await apiGet(`/api/ho-so/${hoSoId}?khoa_sua=${phien.khoaSua}`);
-                if (data && data.du_lieu) {
-                    const d = data.du_lieu;
+                const data = await apiGet(`/api/owner/pages/${pageId}/draft?khoa_sua=${khoaSua}`);
+                if (data && data.duLieu) {
+                    const d = data.duLieu;
                     if (d.fullName) setFullName(d.fullName);
                     if (d.jobTitle) setJobTitle(d.jobTitle);
                     if (d.aboutMe) setAboutMe(d.aboutMe);
@@ -82,10 +82,10 @@ export default function CVTemplate() {
     }
 
     async function luu() {
-        if (!phien || !hoSoId) return alert('Chưa đăng ký xong');
+        if (!pageId || !khoaSua) return alert('Chưa đăng ký xong');
         const duLieu = { fullName, jobTitle, aboutMe, experience, skills, education };
         try {
-            await apiPut(`/api/ho-so/${hoSoId}/du-lieu?khoa_sua=${phien.khoaSua}`, { duLieu });
+            await apiPut(`/api/owner/pages/${pageId}/save?khoa_sua=${khoaSua}`, { duLieu });
             nav('/dashboard');
         } catch (e) {
             alert(e.message);

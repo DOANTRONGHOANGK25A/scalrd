@@ -23,15 +23,29 @@ export default function DangKyStep3() {
     }, [facebook, tiktok, instagram, whatsapp, linkedin]);
 
     async function hoantat() {
-        const payLoad = docJson('dang_ky_tam', {});
-        try {
-            const rs = await apiPost('/api/dang-ky', payLoad);
-            ghiJson('phien_nguoi_dung', { nguoiDungId: rs.nguoiDungId, khoaSua: rs.khoaSua });
-            nav('/dashboard');
-        } catch (err) {
-            alert(err.message);
+        const tagId = localStorage.getItem("current_tag_id");
+        if (!tagId) {
+            alert("Bạn cần quét NFC để bắt đầu (mở /{tagId}).");
+            nav("/");
+            return;
         }
+
+        const payload = docJson("dang_ky_tam", {});
+        const rs = await apiPost(`/api/onboard/${encodeURIComponent(tagId)}/init`, payload);
+
+        ghiJson("phien_nguoi_dung", {
+            tagId: rs.tagId,
+            pageId: rs.pageId,
+            nguoiDungId: rs.nguoiDungId,
+            khoaSua: rs.khoaSua,
+            khoaChu: rs.khoaChu,
+        });
+
+        localStorage.setItem("khoa_chu", rs.khoaChu);
+
+        nav("/mau");
     }
+
 
     return (
         <div className="dangky-page">

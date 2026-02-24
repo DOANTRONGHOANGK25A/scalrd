@@ -34,8 +34,9 @@ export default function TemplateGallery() {
     const phien = docJson('phien_nguoi_dung', null);
 
     useEffect(() => {
-        apiGet('/api/mau').then(setDsMau).catch((e) => alert(e.message));
+        apiGet("/api/public/templates").then(setDsMau).catch(e => alert(e.message));
     }, []);
+
 
     const dsLoc = useMemo(() => {
         if (danhMuc === 'all') return dsMau;
@@ -53,39 +54,16 @@ export default function TemplateGallery() {
     }
 
     async function chonMau(mau) {
-        if (!phien) {
-            alert('Phiên người dùng không tồn tại. Vui lòng đăng ký lại từ đầu.');
-            nav('/');
-            return;
-        }
-        // Lấy hoSoId từ current_ho_so_id (khi từ Dashboard) hoặc từ phien (khi đăng ký mới)
-        const storedHoSoId = localStorage.getItem('current_ho_so_id');
-        const hoSoId = storedHoSoId ? Number(storedHoSoId) : phien.hoSoId;
+        const phien = docJson("phien_nguoi_dung", null);
+        await apiPut(
+            `/api/owner/pages/${phien.pageId}/select-template?khoa_sua=${phien.khoaSua}`,
+            { templateKey: mau.ma }
+        );
 
-        if (!hoSoId) {
-            alert('Không tìm thấy hồ sơ. Vui lòng tạo hồ sơ mới.');
-            nav('/dashboard');
-            return;
-        }
-        try {
-            await apiPut(`/api/ho-so/${hoSoId}/chon-mau?khoa_sua=${phien.khoaSua}`, { mauId: mau.id });
-            const templateRoutes = {
-                wedding: '/template/wedding',
-                pet: '/template/pet',
-                cv: '/template/cv',
-                business: '/template/business',
-                bio: '/template/bio'
-            };
-            const route = templateRoutes[mau.danh_muc];
-            if (route) {
-                nav(route);
-            } else {
-                alert('Template này chưa được hỗ trợ');
-            }
-        } catch (e) {
-            alert(e.message);
-        }
+        const routes = { wedding: "/template/wedding", pet: "/template/pet" };
+        nav(routes[mau.danh_muc] || "/dashboard");
     }
+
 
     const categories = ['all', 'wedding', 'pet', 'cv', 'business', 'bio'];
 
