@@ -13,12 +13,13 @@ import TemplateGallery from "./pages/TemplateGallery.jsx";
 import WelcomePage from "./pages/WelcomePage.jsx";
 import TagGate from "./pages/TagGate.jsx";
 
+import AdminLogin from "./pages/admin/AdminLogin.jsx";
+import AdminPanel from "./pages/admin/AdminPanel.jsx";
+
 // Templates
 import WeddingTemplate from "./templates/WeddingTemplate.jsx";
 import PetTemplate from "./templates/PetTemplate.jsx";
-import CVTemplate from "./templates/CVTemplate.jsx";
-import BusinessTemplate from "./templates/BusinessTemplate.jsx";
-import BioTemplate from "./templates/BioTemplate.jsx";
+
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
@@ -32,6 +33,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         >
             <BrowserRouter>
                 <Routes>
+                    <Route path="/admin/login" element={<AdminLogin />} />
+                    <Route path="/admin" element={<AdminPanel />} />
+
                     <Route path="/" element={<WelcomePage />} />
                     <Route path="/dang-ky/1" element={<DangKyStep1 />} />
                     <Route path="/dang-ky/2" element={<DangKyStep2 />} />
@@ -42,10 +46,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     {/* Template Editor Routes */}
                     <Route path="/template/wedding" element={<WeddingTemplate />} />
                     <Route path="/template/pet" element={<PetTemplate />} />
-                    <Route path="/template/cv" element={<CVTemplate />} />
-                    <Route path="/template/business" element={<BusinessTemplate />} />
-                    <Route path="/template/bio" element={<BioTemplate />} />
 
+
+                    <Route path="/:tagId" element={<TagGate />} />
 
 
 

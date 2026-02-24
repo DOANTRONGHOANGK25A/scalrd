@@ -55,13 +55,24 @@ export default function TemplateGallery() {
 
     async function chonMau(mau) {
         const phien = docJson("phien_nguoi_dung", null);
-        await apiPut(
-            `/api/owner/pages/${phien.pageId}/select-template?khoa_sua=${phien.khoaSua}`,
-            { templateKey: mau.ma }
-        );
 
-        const routes = { wedding: "/template/wedding", pet: "/template/pet" };
-        nav(routes[mau.danh_muc] || "/dashboard");
+        if (!phien?.pageId || !phien?.khoaSua) {
+            alert("Chưa có phiên làm việc. Vui lòng tạo trang mới từ Dashboard.");
+            nav("/dashboard");
+            return;
+        }
+
+        try {
+            await apiPut(
+                `/api/owner/pages/${phien.pageId}/select-template?khoa_sua=${phien.khoaSua}`,
+                { templateKey: mau.ma }
+            );
+
+            const routes = { wedding: "/template/wedding", pet: "/template/pet" };
+            nav(routes[mau.danh_muc] || "/dashboard");
+        } catch (e) {
+            alert("Chọn template thất bại: " + (e.message || e));
+        }
     }
 
 

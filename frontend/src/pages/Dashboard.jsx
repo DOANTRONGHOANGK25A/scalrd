@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { docJson } from "../utils/localStorage";
-import { apiGet, apiDelete, apiPost } from "../api/api";
+import { apiGet, apiDelete, apiPost, apiPut } from "../api/api";
 import {
     FileTextOutlined,
     PlusOutlined,
@@ -42,19 +42,18 @@ export default function Dashboard() {
 
     async function loadDanhSachHoSo() {
         if (!khoaChu) {
-            // Chưa có owner key => user chưa đăng ký hoặc xóa localStorage
             setLoading(false);
             return;
         }
-
         try {
             const data = await apiGet(`/api/owner/pages?khoa_chu=${encodeURIComponent(khoaChu)}`);
             setDanhSachHoSo(Array.isArray(data) ? data : []);
         } catch (e) {
-            console.error("Failed to load pages:", e);
+            console.error('Failed to load pages:', e);
         }
         setLoading(false);
     }
+
 
     function formatDate(dateStr) {
         if (!dateStr) return "";
@@ -93,40 +92,30 @@ export default function Dashboard() {
         setDeleting(false);
     }
 
-    // Mức B: tạo page mới theo owner key
-    // LƯU Ý: để UI y như cũ (tạo page rồi đi /mau chọn template),
-    // backend nên cho phép create page không cần templateKey (template_id NULL).
     async function createNewPage() {
         if (!khoaChu) {
-            alert("Bạn chưa có owner key (khoaChu). Hãy quét NFC và đăng ký trước.");
-            nav("/dang-ky/1");
+            alert('Bạn chưa có owner key (khoaChu). Hãy quét NFC và đăng ký trước.');
+            nav('/dang-ky/1');
             return;
         }
-
         setCreating(true);
         try {
-            // Backend Mức B (khuyến nghị): templateKey có thể bỏ trống => tạo DRAFT chưa chọn template
-            const rs = await apiPost(`/api/owner/pages/create?khoa_chu=${encodeURIComponent(khoaChu)}`, {
-                // templateKey: ""  // có thể bỏ
-            });
+            const rs = await apiPost(`/api/owner/pages/create?khoa_chu=${encodeURIComponent(khoaChu)}`, {});
 
-            // Lưu phiên để gallery/editor dùng
-            localStorage.setItem(
-                "phien_nguoi_dung",
-                JSON.stringify({
-                    khoaChu,
-                    pageId: rs.pageId,
-                    khoaSua: rs.khoaSua,
-                    tagId: null
-                })
-            );
+            localStorage.setItem('phien_nguoi_dung', JSON.stringify({
+                khoaChu,
+                pageId: rs.pageId,
+                khoaSua: rs.khoaSua,
+                tagId: null
+            }));
 
-            nav("/mau");
+            nav('/mau');
         } catch (e) {
-            alert("Tạo trang mới thất bại: " + e.message);
+            alert('Tạo trang mới thất bại: ' + e.message);
         }
         setCreating(false);
     }
+
 
     function savePhienAndGoto(hoSo, route) {
         localStorage.setItem(
@@ -141,14 +130,21 @@ export default function Dashboard() {
         nav(route);
     }
 
-    function handleEdit(hoSo) {
-        // Nếu chưa có template => đi chọn template
-        if (!hoSo.template_key) {
-            savePhienAndGoto(hoSo, "/mau");
+    function handleEdit(p) {
+        localStorage.setItem('phien_nguoi_dung', JSON.stringify({
+            khoaChu,
+            pageId: p.id,
+            khoaSua: p.khoa_sua,
+            tagId: p.tag_id || null
+        }));
+
+        if (!p.template_key) {
+            nav('/mau');
             return;
         }
-        savePhienAndGoto(hoSo, getTemplateRoute(hoSo.danh_muc));
+        nav(getTemplateRoute(p.danh_muc));
     }
+
 
     function handleShare(hoSo) {
         // Share chỉ meaningful khi đã publish và có tag_id
@@ -156,6 +152,43 @@ export default function Dashboard() {
             nav(`/${encodeURIComponent(hoSo.tag_id)}`);
         } else {
             alert("Trang chưa publish hoặc chưa bind tag nên chưa share được.");
+        }
+    }
+
+    async function handleSmartShare(p) {
+        const khoaSua = p?.khoa_sua;
+        if (!khoaSua) return alert('Thiếu khoa_sua trong item');
+
+        let tagId = p?.tag_id || null;
+
+        try {
+            if (!tagId) {
+                const input = prompt('Nhập TAG-ID để gắn và chia sẻ (vd: 04:9B:61:92:D3:2A:81):');
+                if (!input) return;
+
+                const rs = await apiPut(
+                    `/api/owner/pages/${p.id}/bind-tag?khoa_sua=${encodeURIComponent(khoaSua)}`,
+                    { tagId: input }
+                );
+                tagId = rs?.tagId || input;
+                await loadDanhSachHoSo();
+            }
+
+            if (p?.trang_thai !== 'PUBLISHED') {
+                await apiPost(`/api/owner/pages/${p.id}/publish?khoa_sua=${encodeURIComponent(khoaSua)}`, {});
+                await loadDanhSachHoSo();
+            }
+
+            const url = `${window.location.origin}/${encodeURIComponent(tagId)}`;
+            try {
+                await navigator.clipboard.writeText(url);
+                alert('Đã copy link:\n' + url);
+            } catch {
+                alert('Link:\n' + url);
+            }
+            nav(`/${encodeURIComponent(tagId)}`);
+        } catch (e) {
+            alert('Share thất bại: ' + (e.message || e));
         }
     }
 
@@ -222,7 +255,7 @@ export default function Dashboard() {
                                 </div>
 
                                 <div className="dashboard-page-actions">
-                                    <button className="dashboard-btn" onClick={() => handleShare(hoSo)}>
+                                    <button className="dashboard-btn" onClick={() => handleSmartShare(hoSo)}>
                                         <ShareAltOutlined />
                                         Share
                                     </button>
