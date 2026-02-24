@@ -1324,3 +1324,25 @@ textarea.edit-input {
     background: linear-gradient(180deg, #8b7355 0%, #6d5a45 100%);
     border-radius: 12px;
 }
+
+/* ==================== ADMIN PAGES ==================== */
+.admin-table-row:hover td {
+    background: #f5f3ff !important;
+}
+
+/* Fix antd Input.Password icon color on dark background */
+.ant-input-affix-wrapper .ant-input-suffix .anticon {
+    color: rgba(255, 255, 255, 0.45) !important;
+}
+
+/* Admin Login – placeholder color on dark glass card */
+.ant-input[placeholder] {
+    color: rgba(255, 255, 255, 0.85);
+}
+
+/* Remove antd's default blue outline on dark inputs */
+.ant-input-affix-wrapper-focused,
+.ant-input-affix-wrapper:focus {
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.35) !important;
+    border-color: rgba(99, 102, 241, 0.6) !important;
+}

@@ -209,6 +209,31 @@ app.post("/api/onboard/:tagId/init", async (req, res) => {
 });
 
 // =========================
+// Register without NFC tag
+// =========================
+app.post("/api/register", async (req, res) => {
+    const u = await upsertNguoiDung(req.body);
+    if (!u.ok) return res.status(u.code).json({ message: u.message });
+    const user = u.user;
+
+    const khoaSua = nanoid(16);
+    const p = await query(
+        `INSERT INTO pages(nguoi_dung_id, template_id, tag_id, trang_thai, khoa_sua, du_lieu, html_document)
+     VALUES ($1, NULL, NULL, 'DRAFT', $2, '{}'::jsonb, '')
+     RETURNING id`,
+        [user.id, khoaSua]
+    );
+
+    return res.json({
+        nguoiDungId: user.id,
+        khoaChu: user.khoa_chu,
+        pageId: p.rows[0].id,
+        khoaSua,
+        tagId: null
+    });
+});
+
+// =========================
 // Owner APIs (Dashboard)
 // =========================
 app.get("/api/owner/pages", async (req, res) => {

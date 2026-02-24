@@ -24,17 +24,19 @@ export default function DangKyStep3() {
 
     async function hoantat() {
         const tagId = localStorage.getItem("current_tag_id");
-        if (!tagId) {
-            alert("Bạn cần quét NFC để bắt đầu (mở /{tagId}).");
-            nav("/");
-            return;
+        const payload = docJson("dang_ky_tam", {});
+
+        let rs;
+        if (tagId) {
+            // Có NFC tag → onboard gắn tag
+            rs = await apiPost(`/api/onboard/${encodeURIComponent(tagId)}/init`, payload);
+        } else {
+            // Không có tag → đăng ký bình thường, gán tag sau
+            rs = await apiPost(`/api/register`, payload);
         }
 
-        const payload = docJson("dang_ky_tam", {});
-        const rs = await apiPost(`/api/onboard/${encodeURIComponent(tagId)}/init`, payload);
-
         ghiJson("phien_nguoi_dung", {
-            tagId: rs.tagId,
+            tagId: rs.tagId || null,
             pageId: rs.pageId,
             nguoiDungId: rs.nguoiDungId,
             khoaSua: rs.khoaSua,
@@ -43,7 +45,7 @@ export default function DangKyStep3() {
 
         localStorage.setItem("khoa_chu", rs.khoaChu);
 
-        nav("/mau");
+        nav("/dashboard");
     }
 
 
