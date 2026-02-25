@@ -17,6 +17,7 @@ export function normalizeTagId(raw) {
         .toUpperCase();
 }
 
+
 function escapeHtml(s) {
     const str = String(s ?? "");
     return str.replace(/[&<>"']/g, (ch) => {
@@ -40,7 +41,7 @@ function renderTemplate(entryHtml, vars) {
 }
 
 // =========================
-// Admin auth (demo token in-memory)
+// Admin auth 
 // =========================
 const adminSessions = new Map();
 function newAdminToken() {
@@ -313,7 +314,7 @@ app.put("/api/owner/pages/:pageId/bind-tag", async (req, res) => {
 
     res.json({ ok: true, tagId });
 });
-
+//cân nhắc xóa 
 app.put("/api/owner/pages/:pageId/select-template", async (req, res) => {
     const pageId = Number(req.params.pageId);
     const khoaSua = String(req.query.khoa_sua || "");

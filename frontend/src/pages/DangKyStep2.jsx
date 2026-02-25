@@ -28,6 +28,7 @@ export default function DangKyStep2() {
                     onClick={() => nav('/dang-ky/1')}
                     className="dangky-back-btn"
                 />
+
                 <div>
                     <div>
                         <span className="dangky-brand">Snapful</span>
