@@ -74,7 +74,7 @@ export default function DangKyStep1() {
                         size="large"
                         value={hoTen}
                         onChange={(e) => setHoTen(e.target.value)}
-                        placeholder="Hoàng quá đz"
+                        placeholder="Tran Hoan"
                         variant="borderless"
                         className="dangky-input"
                     />

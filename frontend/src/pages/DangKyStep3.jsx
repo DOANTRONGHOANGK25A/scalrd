@@ -26,26 +26,35 @@ export default function DangKyStep3() {
         const tagId = localStorage.getItem("current_tag_id");
         const payload = docJson("dang_ky_tam", {});
 
-        let rs;
-        if (tagId) {
-            // Có NFC tag → onboard gắn tag
-            rs = await apiPost(`/api/onboard/${encodeURIComponent(tagId)}/init`, payload);
-        } else {
-            // Không có tag → đăng ký bình thường, gán tag sau
-            rs = await apiPost(`/api/register`, payload);
+        try {
+            let rs;
+            if (tagId) {
+                // Có NFC tag → onboard gắn tag
+                rs = await apiPost(`/api/onboard/${encodeURIComponent(tagId)}/init`, payload);
+            } else {
+                // Không có tag → đăng ký bình thường, gán tag sau
+                rs = await apiPost(`/api/register`, payload);
+            }
+
+            ghiJson("phien_nguoi_dung", {
+                tagId: rs.tagId || null,
+                pageId: rs.pageId,
+                nguoiDungId: rs.nguoiDungId,
+                khoaSua: rs.khoaSua,
+                khoaChu: rs.khoaChu,
+            });
+
+            localStorage.setItem("khoa_chu", rs.khoaChu);
+
+            nav("/dashboard");
+        } catch (e) {
+            if (e.message?.includes("Tag đã onboard")) {
+                alert("Tag này đã được đăng ký rồi. Chuyển về Dashboard.");
+                nav("/dashboard");
+            } else {
+                alert("Đăng ký thất bại: " + (e.message || e));
+            }
         }
-
-        ghiJson("phien_nguoi_dung", {
-            tagId: rs.tagId || null,
-            pageId: rs.pageId,
-            nguoiDungId: rs.nguoiDungId,
-            khoaSua: rs.khoaSua,
-            khoaChu: rs.khoaChu,
-        });
-
-        localStorage.setItem("khoa_chu", rs.khoaChu);
-
-        nav("/dashboard");
     }
 
 

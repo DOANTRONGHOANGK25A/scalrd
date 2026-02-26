@@ -16,9 +16,8 @@ import TagGate from "./pages/TagGate.jsx";
 import AdminLogin from "./pages/admin/AdminLogin.jsx";
 import AdminPanel from "./pages/admin/AdminPanel.jsx";
 
-// Templates
-import WeddingTemplate from "./templates/WeddingTemplate.jsx";
-import PetTemplate from "./templates/PetTemplate.jsx";
+// Template Editor (unified)
+import TemplateEditor from "./pages/TemplateEditor.jsx";
 
 
 ReactDOM.createRoot(document.getElementById("root")).render(
@@ -43,9 +42,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/mau" element={<TemplateGallery />} />
 
-                    {/* Template Editor Routes */}
-                    <Route path="/template/wedding" element={<WeddingTemplate />} />
-                    <Route path="/template/pet" element={<PetTemplate />} />
+
+                    <Route path="/template-editor" element={<TemplateEditor />} />
 
 
                     <Route path="/:tagId" element={<TagGate />} />

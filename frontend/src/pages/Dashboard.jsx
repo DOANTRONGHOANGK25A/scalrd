@@ -15,12 +15,10 @@ import "../styles/dashboard.css";
 export default function Dashboard() {
     const nav = useNavigate();
 
-    // Ưu tiên lấy khoaChu từ localStorage (Mức B)
     const phien = docJson("phien_nguoi_dung", null);
     const khoaChuLocal = localStorage.getItem("khoa_chu") || "";
     const khoaChu = khoaChuLocal || phien?.khoaChu || "";
 
-    // (giữ lại cách lấy tên như bạn đang làm)
     const tam = docJson("dang_ky_tam", {});
     const hoTen = tam.hoTen || "User";
 
@@ -32,12 +30,10 @@ export default function Dashboard() {
     const [creating, setCreating] = useState(false);
 
     useEffect(() => {
-        // nếu phien có khoaChu mà localStorage chưa có thì sync lại
         if (!khoaChuLocal && phien?.khoaChu) {
             localStorage.setItem("khoa_chu", phien.khoaChu);
         }
         loadDanhSachHoSo();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function loadDanhSachHoSo() {
@@ -62,14 +58,7 @@ export default function Dashboard() {
     }
 
     function getTemplateRoute(danhMuc) {
-        const routes = {
-            wedding: "/template/wedding",
-            pet: "/template/pet",
-            cv: "/template/cv",
-            business: "/template/business",
-            bio: "/template/bio"
-        };
-        return routes[danhMuc] || "/mau";
+        return "/template-editor";
     }
 
     function openDeleteModal(hoSo) {
@@ -77,7 +66,6 @@ export default function Dashboard() {
         setShowDeleteModal(true);
     }
 
-    // Mức B: delete theo pageId + khoa_sua (cần backend có DELETE /api/owner/pages/:pageId)
     async function confirmDelete() {
         if (!selectedHoSo) return;
         setDeleting(true);
@@ -117,19 +105,6 @@ export default function Dashboard() {
     }
 
 
-    function savePhienAndGoto(hoSo, route) {
-        localStorage.setItem(
-            "phien_nguoi_dung",
-            JSON.stringify({
-                khoaChu,
-                pageId: hoSo.id,
-                khoaSua: hoSo.khoa_sua,
-                tagId: hoSo.tag_id || null
-            })
-        );
-        nav(route);
-    }
-
     function handleEdit(p) {
         localStorage.setItem('phien_nguoi_dung', JSON.stringify({
             khoaChu,
@@ -145,15 +120,6 @@ export default function Dashboard() {
         nav(getTemplateRoute(p.danh_muc));
     }
 
-
-    function handleShare(hoSo) {
-        // Share chỉ meaningful khi đã publish và có tag_id
-        if (hoSo.trang_thai === "PUBLISHED" && hoSo.tag_id) {
-            nav(`/${encodeURIComponent(hoSo.tag_id)}`);
-        } else {
-            alert("Trang chưa publish hoặc chưa bind tag nên chưa share được.");
-        }
-    }
 
     async function handleSmartShare(p) {
         const khoaSua = p?.khoa_sua;
@@ -179,22 +145,19 @@ export default function Dashboard() {
                 await loadDanhSachHoSo();
             }
 
-            const url = `${window.location.origin}/${encodeURIComponent(tagId)}`;
+            const url = `${window.location.origin}/${tagId}`;
             try {
                 await navigator.clipboard.writeText(url);
                 alert('Đã copy link:\n' + url);
             } catch {
                 alert('Link:\n' + url);
             }
-            nav(`/${encodeURIComponent(tagId)}`);
+            nav(`/${tagId}`);
         } catch (e) {
             alert('Share thất bại: ' + (e.message || e));
         }
     }
 
-    // =========================
-    // UI giữ nguyên như bạn
-    // =========================
     return (
         <div className="dashboard-page">
             {/* Header */}

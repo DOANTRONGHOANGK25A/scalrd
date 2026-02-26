@@ -152,6 +152,39 @@ app.get("/api/public/templates", async (req, res) => {
     res.json(rs.rows);
 });
 
+// Preview a template with demo data (read-only)
+app.get("/api/public/templates/:ma/preview", async (req, res) => {
+    const ma = String(req.params.ma || "").trim();
+    const tpl = await getTemplateByKey(ma);
+    if (!tpl) return res.status(404).json({ message: "Không tìm thấy template" });
+
+    // Demo data to fill placeholders
+    const demoVars = {
+        tagId: "DEMO-TAG",
+        hoTen: "Nguyen Van A",
+        email: "demo@example.com",
+        soDienThoai: "0901234567",
+        gioiTinh: "male",
+        ngaySinh: "2000-01-01",
+        facebook: "facebook.com/demo",
+        tiktok: "tiktok.com/@demo",
+        instagram: "instagram.com/demo",
+        whatsapp: "+84901234567",
+        linkedin: "linkedin.com/in/demo",
+        // Wedding fields
+        groomName: "William",
+        brideName: "Emma",
+        message: "The future seems so bright and clear when I picture it with you near.",
+        // Pet fields
+        petName: "Lucky",
+        species: "Golden Retriever",
+        aboutMe: "A friendly and playful dog who loves meeting new people!",
+    };
+
+    const html = renderTemplate(tpl.entry_html, demoVars);
+    res.json({ html, ten: tpl.ten, danh_muc: tpl.danh_muc });
+});
+
 app.get("/api/public/page-by-tag/:tagId", async (req, res) => {
     const tagId = normalizeTagId(req.params.tagId);
     const rs = await query(
@@ -314,7 +347,7 @@ app.put("/api/owner/pages/:pageId/bind-tag", async (req, res) => {
 
     res.json({ ok: true, tagId });
 });
-//cân nhắc xóa 
+
 app.put("/api/owner/pages/:pageId/select-template", async (req, res) => {
     const pageId = Number(req.params.pageId);
     const khoaSua = String(req.query.khoa_sua || "");
@@ -347,7 +380,8 @@ app.get("/api/owner/pages/:pageId/draft", async (req, res) => {
     if (!(await assertKhoaSua(pageId, khoaSua))) return res.status(403).json({ message: "Khóa sửa không hợp lệ" });
 
     const rs = await query(
-        `SELECT p.id, p.tag_id, p.trang_thai, p.du_lieu, t.ma AS template_key, t.danh_muc
+        `SELECT p.id, p.tag_id, p.trang_thai, p.du_lieu, p.html_document,
+                t.ma AS template_key, t.danh_muc
      FROM pages p
      LEFT JOIN templates t ON t.id=p.template_id
      WHERE p.id=$1`,
@@ -362,6 +396,7 @@ app.get("/api/owner/pages/:pageId/draft", async (req, res) => {
         templateKey: rs.rows[0].template_key || null,
         danhMuc: rs.rows[0].danh_muc || null,
         duLieu: rs.rows[0].du_lieu || {},
+        htmlDocument: rs.rows[0].html_document || "",
     });
 });
 
@@ -392,7 +427,8 @@ app.put("/api/owner/pages/:pageId/save", async (req, res) => {
         await query("UPDATE pages SET html_document=$1, cap_nhat_luc=NOW() WHERE id=$2", [html, pageId]);
     }
 
-    res.json({ ok: true });
+    const updated = await query("SELECT html_document FROM pages WHERE id=$1", [pageId]);
+    res.json({ ok: true, htmlDocument: updated.rows[0]?.html_document || "" });
 });
 
 app.post("/api/owner/pages/:pageId/publish", async (req, res) => {
@@ -464,6 +500,7 @@ app.get("/api/admin/tags", requireAdmin, async (req, res) => {
     const rs = await query("SELECT * FROM nfc_tags ORDER BY tao_luc DESC");
     res.json(rs.rows);
 });
+
 
 app.post("/api/admin/tags/import", requireAdmin, async (req, res) => {
     const tags = Array.isArray(req.body?.tags) ? req.body.tags : [];

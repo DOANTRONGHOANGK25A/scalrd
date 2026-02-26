@@ -1,0 +1,341 @@
+/* =============================
+   Template Editor — Shared Chrome UI
+   (Matches WeddingTemplate layout)
+   ============================= */
+
+/* Container — mobile-first, centered like WeddingTemplate */
+.te-page {
+    min-height: 100vh;
+    background: #f5f0e8;
+    max-width: 420px;
+    margin: 0 auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* Header — white, light shadow */
+.te-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.te-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.te-back-icon {
+    font-size: 18px;
+    cursor: pointer;
+    color: #000;
+    transition: color 0.2s;
+}
+
+.te-back-icon:hover {
+    color: #333;
+}
+
+.te-brand {
+    font-weight: bold;
+    color: #22c55e;
+    display: block;
+    line-height: 1.2;
+}
+
+.te-title {
+    margin-left: 8px;
+    color: #333;
+    font-size: 13px;
+    display: block;
+}
+
+.te-save-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #1890ff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+.te-save-btn:hover {
+    background: #40a9ff;
+}
+
+/* Edit Hint */
+.te-edit-hint {
+    text-align: center;
+    padding: 10px;
+    background: #e8f5e9;
+    color: #22c55e;
+    font-size: 13px;
+}
+
+/* Preview Area */
+.te-preview-wrapper {
+    padding: 16px;
+}
+
+.te-preview-content {
+    max-width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    min-height: 300px;
+}
+
+/* Editable field highlighting injected into the rendered HTML */
+.te-preview-content [data-field] {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.te-preview-content [data-field]:hover {
+    background: rgba(34, 197, 94, 0.05);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+/* Fallback field list (when no data-field in HTML) */
+.te-fields-section {
+    max-width: 100%;
+    margin: 16px auto 0;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.te-fields-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.te-field-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.te-field-item:hover {
+    background: rgba(34, 197, 94, 0.08);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.te-field-item:last-child {
+    margin-bottom: 0;
+}
+
+.te-field-key {
+    font-size: 13px;
+    font-weight: 600;
+    color: #22c55e;
+    text-transform: capitalize;
+}
+
+.te-field-value {
+    font-size: 13px;
+    color: #888;
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Loading */
+.te-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #f5f0e8;
+}
+
+.te-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #1890ff;
+    border-radius: 50%;
+    animation: te-spin 1s linear infinite;
+}
+
+@keyframes te-spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Empty state */
+.te-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 60vh;
+    color: #666;
+    text-align: center;
+    gap: 12px;
+}
+
+.te-empty-icon {
+    font-size: 48px;
+    opacity: 0.4;
+}
+
+/* Modal Overlay — centered like WeddingTemplate */
+.te-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: te-fade-in 0.2s ease;
+}
+
+@keyframes te-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal — white, centered, with borders */
+.te-modal {
+    background: white;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 3px 6px -4px rgba(0, 0, 0, 0.12),
+        0 6px 16px 0 rgba(0, 0, 0, 0.08),
+        0 9px 28px 8px rgba(0, 0, 0, 0.05);
+}
+
+.te-modal-header {
+    padding: 16px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.te-modal-body {
+    padding: 24px;
+}
+
+.te-input,
+.te-textarea {
+    width: 100%;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    outline: none;
+    transition: all 0.3s;
+    font-family: inherit;
+    box-sizing: border-box;
+}
+
+.te-input:focus,
+.te-textarea:focus {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.te-textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+.te-modal-footer {
+    padding: 10px 16px;
+    border-top: 1px solid #f0f0f0;
+    display: flex;
+    gap: 10px;
+}
+
+/* Buttons — matching WeddingTemplate style */
+.te-btn {
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.te-btn:hover {
+    color: #40a9ff;
+    border-color: #40a9ff;
+}
+
+.te-btn-cancel {
+    flex: 1;
+}
+
+.te-btn-danger {
+    color: #ff4d4f;
+    border-color: #ff4d4f;
+    padding: 8px 12px;
+}
+
+.te-btn-danger:hover {
+    color: #ff7875;
+    border-color: #ff7875;
+}
+
+.te-btn-primary {
+    flex: 1;
+    background: #1890ff;
+    color: white;
+    border-color: #1890ff;
+}
+
+.te-btn-primary:hover {
+    background: #40a9ff;
+    border-color: #40a9ff;
+}

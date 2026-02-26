@@ -1,5 +1,3 @@
-export const DANG_KY_TAM_KEY = 'dang_ky_tam';
-export const PHIEN_NGUOI_DUNG_KEY = 'phien_nguoi_dung';
 
 export function docJson(key, macDinh) {
     try {

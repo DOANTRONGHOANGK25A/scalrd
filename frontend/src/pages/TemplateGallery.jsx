@@ -30,6 +30,8 @@ export default function TemplateGallery() {
     const [danhMuc, setDanhMuc] = useState('all');
     const [previewMau, setPreviewMau] = useState(null);
     const [showPreview, setShowPreview] = useState(false);
+    const [previewHtml, setPreviewHtml] = useState('');
+    const [previewLoading, setPreviewLoading] = useState(false);
 
     const phien = docJson('phien_nguoi_dung', null);
 
@@ -37,20 +39,30 @@ export default function TemplateGallery() {
         apiGet("/api/public/templates").then(setDsMau).catch(e => alert(e.message));
     }, []);
 
-
     const dsLoc = useMemo(() => {
         if (danhMuc === 'all') return dsMau;
         return dsMau.filter((mau) => mau.danh_muc === danhMuc);
     }, [dsMau, danhMuc]);
 
-    function moXemTruoc(mau) {
+    async function moXemTruoc(mau) {
         setPreviewMau(mau);
         setShowPreview(true);
+        setPreviewHtml('');
+        setPreviewLoading(true);
+        try {
+            const data = await apiGet(`/api/public/templates/${encodeURIComponent(mau.ma)}/preview`);
+            setPreviewHtml(data.html || '');
+        } catch (e) {
+            console.error('Preview failed:', e);
+            setPreviewHtml('');
+        }
+        setPreviewLoading(false);
     }
 
     function dongXemTruoc() {
         setShowPreview(false);
         setPreviewMau(null);
+        setPreviewHtml('');
     }
 
     async function chonMau(mau) {
@@ -68,13 +80,11 @@ export default function TemplateGallery() {
                 { templateKey: mau.ma }
             );
 
-            const routes = { wedding: "/template/wedding", pet: "/template/pet" };
-            nav(routes[mau.danh_muc] || "/dashboard");
+            nav("/template-editor");
         } catch (e) {
             alert("Chọn template thất bại: " + (e.message || e));
         }
     }
-
 
     const categories = ['all', 'wedding', 'pet', 'cv', 'business', 'bio'];
 
@@ -139,7 +149,7 @@ export default function TemplateGallery() {
                 )}
             </div>
 
-            {/* Preview Modal */}
+            {/* Preview Modal — unified HTML preview */}
             {showPreview && previewMau && (
                 <div className="preview-modal-overlay" onClick={dongXemTruoc}>
                     <div className="preview-modal" onClick={(e) => e.stopPropagation()}>
@@ -148,59 +158,24 @@ export default function TemplateGallery() {
                             <span>Preview Mode</span>
                         </div>
                         <div className="preview-modal-body">
-                            <div className="preview-modal-content">
-                                {/* Wedding Preview */}
-                                {previewMau.danh_muc === 'wedding' && (
-                                    <div className="preview-wedding-card">
-                                        <div className="wedding-icon">🏠</div>
-                                        <p className="wedding-hello">HELLO EVERYBODY!</p>
-                                        <h1 className="wedding-title">✦ We're Getting Married! ✦</h1>
-                                        <p className="wedding-quote">
-                                            We Believe, with All Our Heart, That Love is Not Just
-                                            a Feeling but a Joyful Celebration of Life and Togetherness.
-                                        </p>
-                                        <div className="wedding-flower">🌸</div>
-                                        <div className="wedding-couple-icon">👫</div>
-                                        <h2 className="wedding-groom">William</h2>
-                                        <p className="wedding-and">&</p>
-                                        <h2 className="wedding-bride">Emma</h2>
-                                        <p className="wedding-footer-quote">
-                                            "The future seems so bright and clear when I picture it with you near."
-                                        </p>
-                                        <div className="wedding-photo-placeholder"></div>
+                            {previewLoading ? (
+                                <div className="preview-loading">
+                                    <div className="preview-spinner"></div>
+                                </div>
+                            ) : previewHtml ? (
+                                <div
+                                    className="preview-html-content"
+                                    dangerouslySetInnerHTML={{ __html: previewHtml }}
+                                />
+                            ) : (
+                                <div className="preview-placeholder">
+                                    <div className="preview-placeholder-icon">
+                                        {categoryIcons[previewMau.danh_muc] || '📄'}
                                     </div>
-                                )}
-
-                                {/* Other Previews - Placeholder */}
-                                {previewMau.danh_muc === 'pet' && (
-                                    <div className="preview-placeholder">
-                                        <div className="preview-placeholder-icon">🐾</div>
-                                        <h2>Pet Template</h2>
-                                        <p>Preview </p>
-                                    </div>
-                                )}
-                                {previewMau.danh_muc === 'cv' && (
-                                    <div className="preview-placeholder">
-                                        <div className="preview-placeholder-icon">📄</div>
-                                        <h2>CV Template</h2>
-                                        <p>Preview </p>
-                                    </div>
-                                )}
-                                {previewMau.danh_muc === 'business' && (
-                                    <div className="preview-placeholder">
-                                        <div className="preview-placeholder-icon">🏢</div>
-                                        <h2>Business Template</h2>
-                                        <p>Preview </p>
-                                    </div>
-                                )}
-                                {previewMau.danh_muc === 'bio' && (
-                                    <div className="preview-placeholder">
-                                        <div className="preview-placeholder-icon">👤</div>
-                                        <h2>Bio Template</h2>
-                                        <p>Preview </p>
-                                    </div>
-                                )}
-                            </div>
+                                    <h2>{previewMau.ten}</h2>
+                                    <p>Preview not available</p>
+                                </div>
+                            )}
                         </div>
                         <div className="preview-modal-footer">
                             <button className="btn-back" onClick={dongXemTruoc}>Back</button>
